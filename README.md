@@ -1,0 +1,75 @@
+# MCOC — Proyecto del curso
+
+## Propósito general
+
+Proyecto del curso basado en **desarrollo asistido por agentes de IA**.
+Establece un entorno de trabajo reutilizable con opencode, agentes
+especializados y buenas prácticas de código, como base para el resto del curso.
+
+## Entorno de desarrollo
+
+- Sistema operativo: **Windows**
+- Python: **3.14.7** (se requiere 3.14+)
+- Shell: PowerShell
+
+## Requisitos
+
+- Python 3.14+
+- Git
+
+## Crear y activar el ambiente virtual
+
+```powershell
+py -m venv .venv
+.\.venv\Scripts\Activate.ps1
+```
+
+## Instalar dependencias
+
+```powershell
+pip install -e ".[dev]"          # desde pyproject.toml
+pip install -r requirements-dev.txt  # desde requirements (equivalente)
+```
+
+## Ejecutar tests
+
+```powershell
+pytest
+```
+
+## Información del sistema
+
+Genera un reporte del sistema en `data/system_info.json` (SO, arquitectura,
+versión de Python, procesador, núcleos y RAM):
+
+```powershell
+py src/system_info.py
+```
+
+## Estado actual del proyecto
+
+- Estructura base creada: `src/mcoc/`, `tests/`, `pyproject.toml`.
+- Configuración de agentes de IA lista: `.opencode/agent/` y `AGENTS.md`.
+- CLI mínima funcional (`mcoc`) y tests iniciales pasando.
+- Script de información del sistema (`src/system_info.py`) con salida en
+  `data/system_info.json`.
+- Repositorio git inicializado (pendiente de primer commit y push).
+
+## Estructura
+
+```
+MCOC/
+├── .opencode/       # Agentes y comandos de IA (opencode)
+├── data/            # Salidas generadas (información del sistema)
+├── src/mcoc/        # Código del proyecto
+├── src/system_info.py    # Script de información del sistema
+├── tests/           # Tests (pytest)
+├── requirements.txt       # Dependencias de ejecución
+├── requirements-dev.txt   # Dependencias de desarrollo
+└── pyproject.toml
+```
+
+## Agentes de IA
+
+Consulta [AGENTS.md](AGENTS.md) para conocer los agentes disponibles y cómo
+usarlos con opencode.
