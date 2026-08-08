@@ -19,16 +19,31 @@ especializados y buenas prácticas de código, como base para el resto del curso
 
 ## Crear y activar el ambiente virtual
 
-```powershell
+Primero se crea (una sola vez), igual en ambas terminales:
+
+```
 py -m venv .venv
+```
+
+Luego se activa, según la terminal:
+
+**PowerShell**
+```powershell
 .\.venv\Scripts\Activate.ps1
 ```
+
+**CMD**
+```cmd
+.venv\Scripts\activate.bat
+```
+
+Verás `(.venv)` al inicio de la línea cuando esté activo. Para desactivarlo:
+`deactivate`.
 
 ## Instalar dependencias
 
 ```powershell
-pip install -e ".[dev]"          # desde pyproject.toml
-pip install -r requirements-dev.txt  # desde requirements (equivalente)
+pip install -r requirements.txt
 ```
 
 ## Ejecutar tests
@@ -64,8 +79,7 @@ MCOC/
 ├── src/mcoc/        # Código del proyecto
 ├── src/system_info.py    # Script de información del sistema
 ├── tests/           # Tests (pytest)
-├── requirements.txt       # Dependencias de ejecución
-├── requirements-dev.txt   # Dependencias de desarrollo
+├── requirements.txt       # Dependencias del proyecto
 └── pyproject.toml
 ```
 

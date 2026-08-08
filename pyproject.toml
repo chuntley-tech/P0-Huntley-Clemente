@@ -9,12 +9,6 @@ description = "Proyecto del curso basado en desarrollo asistido por agentes de I
 requires-python = ">=3.14"
 dependencies = []
 
-[project.optional-dependencies]
-dev = [
-    "pytest>=8.0",
-    "pytest-cov>=5.0",
-]
-
 [project.scripts]
 mcoc = "mcoc.cli:main"
 
