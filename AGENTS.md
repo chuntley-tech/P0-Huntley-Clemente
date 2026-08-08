@@ -6,8 +6,25 @@ leer antes de trabajar en este proyecto.
 ## Proyecto
 
 - Proyecto de curso en **Python 3.14+**.
+- **Propósito**: desarrollar un entorno de trabajo reutilizable y aplicaciones
+  pequeñas usando **desarrollo asistido por agentes de IA**.
 - Paquete en `src/mcoc/`, tests en `tests/` con **pytest**.
-- Configuración del proyecto en `pyproject.toml`.
+- Configuración del proyecto en `pyproject.toml` y dependencias en
+  `requirements.txt`.
+
+## Reglas obligatorias
+
+- **Mantener el código sencillo**: priorizar la claridad sobre la complejidad;
+  no sobre-ingeniería.
+- **No inventar mediciones**: nunca fabricar valores, resultados o datos que
+  no hayan sido obtenidos realmente.
+- **No ejecutar comandos destructivos de Git**: evitar operaciones que borren
+  historia (`push --force`, `reset --hard`, `filter-branch`, etc.) salvo
+  petición explícita del usuario.
+- **No subir credenciales**: revisar que no haya secretos, tokens ni claves
+  antes de commitear.
+- **Ejecutar las pruebas después de modificar código**: correr `pytest` cada
+  vez que se cambie código y antes de dar por terminada una tarea.
 
 ## Idiomas
 
@@ -30,7 +47,7 @@ leer antes de trabajar en este proyecto.
    activado).
 2. Si no hay linter configurado, revisar manualmente que el código sea
    consistente con las convenciones.
-3. Instalar en modo editable: `pip install -e ".[dev]"`.
+3. Instalar dependencias: `pip install -r requirements.txt`.
 
 ## Agentes disponibles
 
