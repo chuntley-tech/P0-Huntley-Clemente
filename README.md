@@ -101,14 +101,14 @@ multihilo que reparte la multiplicación entre varios núcleos.
 - Está escrito en **C compilado y optimizado** (BLAS), no en Python interpretado.
 - Es **multihilo**: aprovecha varios núcleos del procesador.
 - Usa **vectorización** y un acceso a memoria optimizado para caché.
-- En las mediciones de este proyecto, para 64×64 NumPy tardó ~26–104 µs
-  frente a ~16–20 ms de `mimatmul` (unas 200–350× más rápido).
+- En las mediciones de este proyecto, para 64×64 NumPy tardó ~19–80 µs
+  frente a ~17–19 ms de `mimatmul` (unas 400–450× más rápido).
 
 ### ¿Por qué las repeticiones no entregan exactamente el mismo tiempo?
 
 El sistema operativo comparte el CPU con otros procesos, cambia la frecuencia
 del procesador (turbo/temperatura) y el estado de la caché varía entre
-ejecuciones. Por ejemplo, en 8×8 `mimatmul` midió 83.8, 70.5 y 70.1 µs en sus
+ejecuciones. Por ejemplo, en 8×8 `mimatmul` midió 118.8, 91.0 y 87.6 µs en sus
 tres repeticiones: pequeñas variaciones de este tipo son esperables.
 
 ### ¿Cuál es aproximadamente la matriz cuadrada de mayor tamaño que cabría en la RAM libre?
@@ -159,3 +159,39 @@ MCOC/
 
 Consulta [AGENTS.md](AGENTS.md) para conocer los agentes disponibles y cómo
 usarlos con opencode.
+
+## Reflexión sobre el trabajo con el agente
+
+### ¿Qué parte realizó correctamente el agente?
+
+Configuró el entorno completo: instaló Git, creó el ambiente virtual y la
+estructura del proyecto (`src/`, `tests/`, `pyproject.toml`), preparó los
+agentes de IA en `.opencode/` y escribió `mimatmul` con sus tests, el
+benchmark, el gráfico y la comparación con NumPy. También dejó el repositorio
+en GitHub.
+
+### ¿Qué parte tuvo que corregir o modificar?
+
+Varias cosas puntuales: la referencia de NumPy en los tests (la primera
+formulación con broadcast estaba mal y dio errores hasta corregirla), la
+obtención de núcleos físicos (`os.cpu_count` no acepta `logical` en Windows y
+hubo que usar la API `GetLogicalProcessorInformationEx`), un archivo
+`benchmark.json` obsoleto que se eliminó al pasar a CSV, y ajustes del gráfico
+(etiquetas de los ejes y una etiqueta que se salía del borde).
+
+### ¿Qué archivo comprende mejor después del proyecto?
+
+Comprendo mejor cómo funcionan los archivos de pruebas y el ambiente virtual.
+Ahora entiendo cómo pytest descubre y ejecuta cada test, cómo se estructuran
+los casos (valores esperados, matrices especiales y errores) y por qué el
+ambiente virtual mantiene aisladas las dependencias del proyecto. Gracias a
+los tests pude comprobar el comportamiento de `mimatmul` sin ejecutarlo a mano
+cada vez, y verificar que los cambios no rompían lo que ya funcionaba.
+
+### ¿Qué parte del código todavía le resulta menos clara?
+
+La parte menos clara es el manejo de Git: siento que es algo automatizado y
+que uno no puede interferir mucho. Aunque entiendo los comandos básicos
+(`git add`, `commit`, `push`, `remote`), me cuesta visualizar qué pasa por
+detrás entre el área de preparación, el historial de commits y el repositorio
+remoto, y sobre todo cómo deshacer errores si algo sale mal.
