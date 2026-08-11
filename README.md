@@ -82,6 +82,42 @@ Para generar el gráfico comparativo (`figures/benchmark.png`) a partir del CSV:
 py src/graficar_benchmark.py
 ```
 
+## Análisis de los resultados
+
+### ¿mimatmul parece utilizar uno o varios núcleos?
+
+**Uno solo.** Al inspeccionar el código se ve un triple bucle en Python
+interpretado que procesa los elementos de forma secuencial; no hay
+paralelización ni llamadas a librerías nativas.
+
+### ¿NumPy parece utilizar uno o varios núcleos?
+
+**Varios.** La configuración del NumPy instalado muestra que su operación
+`A @ B` usa **OpenBLAS 0.3.34** (`MAX_THREADS=24`), una librería BLAS
+multihilo que reparte la multiplicación entre varios núcleos.
+
+### ¿Por qué NumPy es más rápido?
+
+- Está escrito en **C compilado y optimizado** (BLAS), no en Python interpretado.
+- Es **multihilo**: aprovecha varios núcleos del procesador.
+- Usa **vectorización** y un acceso a memoria optimizado para caché.
+- En las mediciones de este proyecto, para 64×64 NumPy tardó ~26–104 µs
+  frente a ~16–20 ms de `mimatmul` (unas 200–350× más rápido).
+
+### ¿Por qué las repeticiones no entregan exactamente el mismo tiempo?
+
+El sistema operativo comparte el CPU con otros procesos, cambia la frecuencia
+del procesador (turbo/temperatura) y el estado de la caché varía entre
+ejecuciones. Por ejemplo, en 8×8 `mimatmul` midió 83.8, 70.5 y 70.1 µs en sus
+tres repeticiones: pequeñas variaciones de este tipo son esperables.
+
+### ¿Cuál es aproximadamente la matriz cuadrada de mayor tamaño que cabría en la RAM libre?
+
+Con RAM libre medida de **12.54 GB** (de 23.69 GB totales) y considerando las
+**3 matrices float64** que requiere la operación (A, B y resultado), cada una
+ocupa `8·n²` bytes, por lo que `n ≈ √(RAM_libre / 24) ≈ 23,000`. Aproximadamente
+una matriz de **23,000×23,000** cabría en la RAM libre disponible.
+
 ## Información del sistema
 
 Genera un reporte del sistema en `data/system_info.json` (SO, arquitectura,
