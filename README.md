@@ -12,6 +12,20 @@ especializados y buenas prácticas de código, como base para el resto del curso
 - Python: **3.14.7** (se requiere 3.14+)
 - Shell: PowerShell
 
+### Características del computador
+
+Datos obtenidos con `src/system_info.py` (ver `data/system_info.json`):
+
+| Característica | Valor |
+|---|---|
+| Sistema operativo | Windows |
+| Arquitectura | AMD64 |
+| Versión de Python | 3.14.7 |
+| Modelo del procesador | Intel64 Family 6 Model 186, GenuineIntel |
+| Núcleos físicos | 10 |
+| Procesadores lógicos | 12 |
+| Memoria RAM total | 23.69 GB |
+
 ## Requisitos
 
 - Python 3.14+
@@ -101,14 +115,14 @@ multihilo que reparte la multiplicación entre varios núcleos.
 - Está escrito en **C compilado y optimizado** (BLAS), no en Python interpretado.
 - Es **multihilo**: aprovecha varios núcleos del procesador.
 - Usa **vectorización** y un acceso a memoria optimizado para caché.
-- En las mediciones de este proyecto, para 64×64 NumPy tardó ~19–80 µs
-  frente a ~17–19 ms de `mimatmul` (unas 400–450× más rápido).
+- En las mediciones de este proyecto, para 64×64 NumPy tardó ~21–64 µs
+  frente a ~12.0–12.5 ms de `mimatmul` (unas 300–600× más rápido).
 
 ### ¿Por qué las repeticiones no entregan exactamente el mismo tiempo?
 
 El sistema operativo comparte el CPU con otros procesos, cambia la frecuencia
 del procesador (turbo/temperatura) y el estado de la caché varía entre
-ejecuciones. Por ejemplo, en 8×8 `mimatmul` midió 118.8, 91.0 y 87.6 µs en sus
+ejecuciones. Por ejemplo, en 8×8 `mimatmul` midió 37.5, 33.8 y 34.3 µs en sus
 tres repeticiones: pequeñas variaciones de este tipo son esperables.
 
 ### ¿Cuál es aproximadamente la matriz cuadrada de mayor tamaño que cabría en la RAM libre?
