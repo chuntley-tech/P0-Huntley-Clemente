@@ -1,6 +1,14 @@
+import numpy as np
 import pytest
 
 from mimatmul import mimatmul
+
+
+def _producto_con_numpy(A: list[list[float]], B: list[list[float]]) -> np.ndarray:
+    """Calcula A·B con NumPy como referencia independiente de mimatmul."""
+    a = np.asarray(A, dtype=float)
+    b = np.asarray(B, dtype=float)
+    return np.sum(a[:, :, None] * b[None, :, :], axis=1)
 
 
 def test_matrices_2x2():
@@ -89,6 +97,18 @@ def test_matriz_10x10_normal():
         [3256, 3532, 3815, 4105, 4402, 4006, 3624, 3256, 3532, 3815],
     ]
     assert mimatmul(A, B) == esperado
+
+
+def test_consistente_con_numpy_cuadrada():
+    A = [[0.5, 1.5, -2.0], [2.0, -1.0, 0.25], [1.0, 1.0, 1.0]]
+    B = [[3.0, -0.5, 0.0], [1.0, 2.0, -1.5], [0.5, 1.5, 2.0]]
+    assert np.allclose(mimatmul(A, B), _producto_con_numpy(A, B))
+
+
+def test_consistente_con_numpy_rectangular():
+    A = [[1.1, 2.2, 3.3], [4.4, 5.5, 6.6]]
+    B = [[0.5, 1.0], [1.5, 2.0], [2.5, 3.0]]
+    assert np.allclose(mimatmul(A, B), _producto_con_numpy(A, B))
 
 
 def test_matrices_vacias():

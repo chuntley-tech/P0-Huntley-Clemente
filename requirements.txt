@@ -2,5 +2,6 @@
 # Se actualiza a medida que se añadan dependencias nuevas.
 # Instalar con: pip install -r requirements.txt
 
+numpy==2.5.2
 pytest==9.1.1
 pytest-cov==7.1.0

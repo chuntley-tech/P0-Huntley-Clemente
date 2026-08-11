@@ -17,15 +17,27 @@ especializados y buenas prácticas de código, como base para el resto del curso
 - Python 3.14+
 - Git
 
-## Crear y activar el ambiente virtual
+## Clonar o descargar el repositorio
 
-Primero se crea (una sola vez), igual en ambas terminales:
+**Con git** (recomendado):
+
+```powershell
+git clone https://github.com/chuntley-tech/P0-Huntley-Clemente.git
+cd P0-Huntley-Clemente
+```
+
+**Descargar manualmente**: botón verde "Code" → "Download ZIP" en el
+repositorio, y extraer el contenido.
+
+## Crear el ambiente virtual
+
+Se crea una sola vez, igual en ambas terminales:
 
 ```
 py -m venv .venv
 ```
 
-Luego se activa, según la terminal:
+## Activar el ambiente virtual
 
 **PowerShell**
 ```powershell
@@ -46,10 +58,18 @@ Verás `(.venv)` al inicio de la línea cuando esté activo. Para desactivarlo:
 pip install -r requirements.txt
 ```
 
-## Ejecutar tests
+## Ejecutar las pruebas
 
 ```powershell
 pytest
+```
+
+## Ejecutar el benchmark
+
+Mide el tiempo de `mimatmul` para matrices 2x2 y 10x10:
+
+```powershell
+py src/benchmark.py
 ```
 
 ## Información del sistema
@@ -68,7 +88,9 @@ py src/system_info.py
 - CLI mínima funcional (`mcoc`) y tests iniciales pasando.
 - Script de información del sistema (`src/system_info.py`) con salida en
   `data/system_info.json`.
-- Repositorio git inicializado (pendiente de primer commit y push).
+- Multiplicación de matrices propia (`src/mimatmul.py`) con benchmark
+  (`src/benchmark.py`).
+- Repositorio público en GitHub con el código pusheado.
 
 ## Estructura
 
@@ -78,6 +100,8 @@ MCOC/
 ├── data/            # Salidas generadas (información del sistema)
 ├── src/mcoc/        # Código del proyecto
 ├── src/system_info.py    # Script de información del sistema
+├── src/mimatmul.py       # Multiplicación de matrices propia
+├── src/benchmark.py      # Benchmark de mimatmul
 ├── tests/           # Tests (pytest)
 ├── requirements.txt       # Dependencias del proyecto
 └── pyproject.toml
