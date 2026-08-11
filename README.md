@@ -66,10 +66,20 @@ pytest
 
 ## Ejecutar el benchmark
 
-Mide el tiempo de `mimatmul` para matrices 2x2 y 10x10:
+Mide el tiempo de `mimatmul` contra numpy (`A @ B`) para tamaños 8×8, 16×16,
+32×32 y 64×64, con 3 repeticiones por método y calentamiento previo:
 
 ```powershell
 py src/benchmark.py
+```
+
+Cada repetición queda guardada en `data/benchmark_results.csv` (método,
+tamaño, repetición y tiempo).
+
+Para generar el gráfico comparativo (`figures/benchmark.png`) a partir del CSV:
+
+```powershell
+py src/graficar_benchmark.py
 ```
 
 ## Información del sistema
@@ -97,11 +107,13 @@ py src/system_info.py
 ```
 MCOC/
 ├── .opencode/       # Agentes y comandos de IA (opencode)
-├── data/            # Salidas generadas (información del sistema)
+├── data/            # Salidas generadas (información del sistema, benchmark)
+├── figures/         # Gráficos generados (benchmark.png)
 ├── src/mcoc/        # Código del proyecto
 ├── src/system_info.py    # Script de información del sistema
 ├── src/mimatmul.py       # Multiplicación de matrices propia
 ├── src/benchmark.py      # Benchmark de mimatmul
+├── src/graficar_benchmark.py  # Genera el gráfico del benchmark
 ├── tests/           # Tests (pytest)
 ├── requirements.txt       # Dependencias del proyecto
 └── pyproject.toml
